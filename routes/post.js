@@ -43,7 +43,7 @@ router.get('/get-by-id/:id', function(req, res, next) {
 
 
 /* DELETE POST BY ID */
-router.post('/destroy', function(req, res, next) {
+router.delete('/destroy', function(req, res, next) {
   Post.findByIdAndRemove(req.body._id, function (err, post) {
     if (err) {
       Response.errorResponse(err.message,res);
