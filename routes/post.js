@@ -8,12 +8,11 @@ router.post('/add-post', function(req, res, next) {
  var data = new Post(req.body);
  data.save(function(err){
   if(err){
-      Response.errorResponse(err.message,res);
+      Response.errorResponse(err,res);
   }else{
       Response.successResponse('Received!',res,{});
   }
-  
-     
+   
  })
 });
 
@@ -21,7 +20,7 @@ router.post('/add-post', function(req, res, next) {
 router.get('/get-all', function(req, res, next) {
   Post.find({}, function(err, posts) {
 if(err){
-      Response.errorResponse(err.message,res);
+      Response.errorResponse(err,res);
   }else{
       Response.successResponse('Post Listing!',res,posts);
   }
@@ -34,7 +33,7 @@ if(err){
 router.get('/get-by-id/:id', function(req, res, next) {
   Post.findById(req.params.id, function (err, post) {
     if(err){
-      Response.errorResponse(err.message,res);
+      Response.errorResponse(err,res);
   }else{
       Response.successResponse('Post Detail!',res,post);
   }
@@ -46,7 +45,7 @@ router.get('/get-by-id/:id', function(req, res, next) {
 router.delete('/destroy', function(req, res, next) {
   Post.findByIdAndRemove(req.body._id, function (err, post) {
     if (err) {
-      Response.errorResponse(err.message,res);
+      Response.errorResponse(err,res);
     } else {
       Response.successResponse('Post deleted!',res,{});
     }
@@ -59,7 +58,7 @@ router.put('/update-post', function(req, res, next) {
     console.log(req.body._id);
   Post.findByIdAndUpdate(req.body._id, req.body, function (err, post) {
     if (err) {
-      Response.errorResponse(err.message,res);
+      Response.errorResponse(err,res);
     } else {
       Response.successResponse('Post updated!',res,{});
     }

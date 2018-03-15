@@ -6,5 +6,5 @@ name :String,
 email :String,
 mobile :Number,
 message :String
-});
+},{ strict: false });
 module.exports = mongoose.model('Post', BlogPost);

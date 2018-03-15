@@ -1,8 +1,18 @@
 module.exports = {
-    errorResponse: function(message,res) {
-        return res.json({ result: {}, message: message , success:0, statusCode:500});
+    errorResponse: function(err,res) {
+        res.status(err.status || 500);
+        res.end(JSON.stringify({
+            message: err.message,
+            error: err,
+            status: 0
+          }));
     },
     successResponse: function(message,res,data) {
-        return res.json({ result: data, message: message , success:1, statusCode:200});
+        res.status(200);
+        res.end(JSON.stringify({
+            message: message,
+            data: data,
+            status: 1
+          }));
     }
 }
