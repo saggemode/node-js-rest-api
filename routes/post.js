@@ -4,7 +4,7 @@ var Post = require('../schema/post');
 var Response = require('../common/response');
 
 /* ADD POST. */
-router.post('/add-post', function(req, res, next) {
+router.post('/', function(req, res, next) {
  var data = new Post(req.body);
  data.save(function(err){
   if(err){
@@ -12,12 +12,11 @@ router.post('/add-post', function(req, res, next) {
   }else{
       Response.successResponse('Received!',res,{});
   }
-   
  })
 });
 
 /* GET ALL POSTS. */
-router.get('/get-all', function(req, res, next) {
+router.get('/', function(req, res, next) {
   Post.find({}, function(err, posts) {
 if(err){
       Response.errorResponse(err,res);
@@ -30,7 +29,7 @@ if(err){
 
 
 /* GET SINGLE POST BY ID */
-router.get('/get-by-id/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   Post.findById(req.params.id, function (err, post) {
     if(err){
       Response.errorResponse(err,res);
@@ -42,8 +41,8 @@ router.get('/get-by-id/:id', function(req, res, next) {
 
 
 /* DELETE POST BY ID */
-router.delete('/destroy', function(req, res, next) {
-  Post.findByIdAndRemove(req.body._id, function (err, post) {
+router.delete('/:id', function(req, res, next) {
+  Post.findByIdAndRemove(req.params.id, function (err, post) {
     if (err) {
       Response.errorResponse(err,res);
     } else {
@@ -54,8 +53,7 @@ router.delete('/destroy', function(req, res, next) {
 
 
 /* UPDATE POST */
-router.put('/update-post', function(req, res, next) {
-    console.log(req.body._id);
+router.put('/', function(req, res, next) {
   Post.findByIdAndUpdate(req.body._id, req.body, function (err, post) {
     if (err) {
       Response.errorResponse(err,res);
